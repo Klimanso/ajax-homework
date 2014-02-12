@@ -1,0 +1,260 @@
+*{
+    font-family: Helvetica, arial, freesans, clean, sans-serif;
+}
+
+body{
+    margin: 0px;
+}
+
+.head{
+    height: 40px;
+}
+
+.container{
+    margin: auto;
+    width: 60%;
+}
+
+.header{
+    height: 40px;
+    background-image: linear-gradient(#f9f9f9, #f3f3f3);
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.page-icon{
+    height: 34px;
+    width: 34px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 3px;
+}
+
+.user-inf{
+    width: 200px;
+    height: 40px;
+    float: right;
+}
+
+.in-header{
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 4px;
+}
+
+.link{
+    display: inline-block;
+    width: 160px;
+    height: 40px;
+    float: right;
+    line-height: 40px;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(51, 51, 51);
+    text-decoration: none;
+}
+
+a{
+    color: rgb(51, 51, 51);
+    text-decoration: none;
+}
+
+a:hover{
+    color: #4183c4;
+    text-decoration: none;
+}
+
+.no-link{
+    font-weight: bold;
+    color: rgb(51, 51, 51);
+    width: 220px;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    font-size: 26px;
+    line-height: 30px;
+    text-overflow: ellipsis;
+}
+
+.login{
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px;
+    color: #666;
+    text-overflow: ellipsis;
+}
+
+.user-pseudo{
+    border-bottom: 1px solid rgb(238, 238, 238);
+    padding: 5px 0 10px 0;
+}
+
+.user-email{
+    border-bottom: 1px solid rgb(238, 238, 238);
+    padding: 10px 0 10px 0;
+    vertical-align: middle;
+    font-size: 14px;
+    color: rgb(51, 51, 51);
+}
+
+.search-panel{
+    padding-top: 10px;
+    height: 40px;
+    margin-left: -2px;
+}
+
+.title-search{
+    display: inline-block;
+}
+
+.user-name-input{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    padding: 7px 8px;
+    vertical-align: middle;
+}
+
+.send-button{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    background-image: linear-gradient(#fcfcfc, #eee);
+    padding: 7px 8px;
+    vertical-align: middle;
+}
+
+
+.disabled,.disabled:hover:active{
+    opacity: 0.65;
+    cursor: not-allowed;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    background-image: linear-gradient(#fcfcfc, #eee);
+    padding: 7px 8px;
+    vertical-align: middle;
+}
+
+.send-button:hover{
+    background-image: linear-gradient(#eee, #ddd);
+}
+.send-button:active{
+    background-color: #dcdcdc;
+    background-image: none;
+    border-color: #b5b5b5;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.search-icon{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.user-information-big{
+    display: inline-block;
+}
+
+.user-information-repos{
+    vertical-align: top;
+    margin-left: 20px;
+    min-width: 50%;
+    display: inline-block;
+    border-top: 1px solid rgb(238, 238, 238);
+}
+
+.not-header{
+    width: 220px;
+    height: 220px;
+}
+
+.user-body{
+    padding-top: 10px;
+}
+
+.user-cards{
+    width: 220px;
+    height: 100px;
+    padding-top: 8px;
+    text-align: center;
+}
+
+.card{
+    height: 45px;
+    text-align: center;
+    width: 50%;
+    display: inline-block;
+    overflow: hidden;
+    float: left;
+}
+
+.count{
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1;
+    color: #222;
+}
+
+.text{
+    font-size: 11px;
+    color: #999;
+}
+
+.repo-image{
+    width: 38px;
+    height: 38px;
+    position: relative;
+    top: 1px;
+    vertical-align: middle;
+}
+
+.repo{
+    height: 40px;
+    padding: 4px 4px 1px 4px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+
+.repo-text{
+    display: inline-block;
+    color: #4183c4;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.repo-text:hover{
+    text-decoration: underline;
+}
+
+.fork-container{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+}
+
+.fork-text{
+    display: inline-block;
+    float: left;
+    font-size: 12px;
+    color: #777;
+}
+
+.not-found{
+    width: 100%;
+    height: 415px;
+    background: url("../images/not-found-background.jpg");
+    text-align: center;
+    position: absolute;
+    left: 0;
+}
+
+.image-not-found{
+    padding-top: 80px;
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub User information</title>
+    <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+    <div class="header">
+        <div class="head container">
+            <div class="image-container">
+                <img class="page-icon" src="images/logo.png"/>
+            </div>
+            <div class="user-inf">
+
+                <!--ko if: fullInformation().userInf-->
+                <img class="user-avatar in-header" src="" border="0" data-bind="attr: {src: fullInformation().userInf().avatar_url}"/>
+                <div class="user-name link">
+                    <a data-bind="text: fullInformation().userInf().login, attr: {href: fullInformation().userInf().html_url}"></a>
+                </div>
+                <!--/ko-->
+
+            </div>
+        </div>
+    </div>
+    <div class="page container">
+        <div class="search-panel">
+            <input class="user-name-input" placeholder="Find a User..."
+            /><button class="disabled search">Search</button>
+        </div>
+
+        <div class="user-body">
+
+            <!--ko if: fullInformation().userInf -->
+                <div class="user-information-big">
+                    <div class="image-container">
+                        <img class="user-avatar not-header" data-bind="attr: {src: fullInformation().userInf().avatar_url + '&s=220'}"/>
+                    </div>
+                    <div class="user-pseudo">
+                        <div class="user-name no-link" data-bind="text: fullInformation().userInf().name"></div>
+                        <div class="login" data-bind="text: fullInformation().userInf().login"></div>
+                    </div>
+                    <!--ko if: fullInformation().userInf().email -->
+                        <div class="user-email" data-bind="text: fullInformation().userInf().email"></div>
+                    <!--/ko-->
+                    <div class="user-cards">
+                        <div class="card">
+                            <div class="user-followers count" data-bind="text: fullInformation().userInf().followers"></div>
+                            <div class="user-followers text">follower</div>
+                        </div>
+                        <div class="card">
+                            <div class="user-following count" data-bind="text: fullInformation().userInf().following"></div>
+                            <div class="user-following text">starred</div>
+                        </div>
+                    </div>
+                </div>
+            <!--/ko-->
+
+            <!--ko if: fullInformation().repos -->
+                <div class="user-information-repos">
+                    <div class="user-repos" data-bind="foreach: fullInformation().repos">
+                        <!--ko if: fork-->
+                        <div class="repo forked">
+                            <img class="repo-image" src="images/forked.png"/>
+                            <div class="fork-container">
+                                <a class="repo-text" data-bind="text: name, attr: {href: html_url}"></a>
+                                <div class="fork-text">Forked</div>
+                            </div>
+                        </div>
+                        <!--/ko-->
+                        <!--ko if: !fork-->
+                        <div class="repo no-forked">
+                            <img class="repo-image" src="images/no-forked.png"/>
+                            <div class="fork-container">
+                                <a class="repo-text" data-bind="text: name, attr: {href: html_url}"></a>
+                            </div>
+                        </div>
+                        <!--/ko-->
+                    </div>
+                </div>
+            <!--/ko-->
+
+            <!--ko if: fullInformation().notFound-->
+                <div class="not-found">
+                    <img class="image-not-found" src="images/not-found-text.png"/>
+                </div>
+            <!--/ko-->
+
+        </div>
+
+        <script src="javascript/knockout-3.0.0.js" type="text/javascript"></script>
+        <script src="javascript/AppController.js" type="text/javascript"></script>
+        <script src="javascript/Model.js" type="text/javascript"></script>
+    </div>
+</body>
+</html>
