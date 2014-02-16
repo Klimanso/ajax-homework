@@ -6,7 +6,28 @@ var AppController = function(){
         defaultRequests = {
             user: 'https://api.github.com/users/',
             repos: 'https://api.github.com/users/@name/repos'
-        };
+        },
+        /**
+         * Функция проверки и очистки localStorage при загрузке страницы
+         * @return {boolean} удачен ли результат операции
+         */
+        checkCache = function(){
+            if(localStorage){
+                var num = 0,
+                curDate = new Date().getTime(),
+                curItem,
+                curItemKey;
+
+                for(;num < localStorage.length; num++){
+                    curItemKey = localStorage.key(num);
+                    curItem = JSON.parse(localStorage[curItemKey]);
+                    if(curDate - curItem.time < 86400000)
+                        localStorage.removeItem(curItemKey)
+                }
+                return true;
+            }
+            return false;
+        }();
 
     userInput.addEventListener('input', function(){
         if(!this.value.length)
@@ -18,11 +39,15 @@ var AppController = function(){
     requestSender.addEventListener('click',function(){
         if(!userInput.value.length) return;
 
-        var userName = userInput.value,
-            isUserInfoInLocalStorage = !!localStorage[userName + '-info'],
-            isUserReposInLocalStorage = !!localStorage[userName + '-repos'];
+        if(!localStorage){
+            throw new Error('Local Storage not available');
+        }
 
-        if(localStorage && (!isUserInfoInLocalStorage && !isUserReposInLocalStorage)){
+        var userName = userInput.value,
+            isUserInLocalStorage = !!localStorage[userName];
+
+        if(!isUserInLocalStorage){
+            console.log('AJAX');
             callAjax(defaultRequests['user'] + userName, function(arg){
                 userRequestListener(arg, userName);
             });
@@ -31,7 +56,7 @@ var AppController = function(){
             });
         }
 
-        update(userName);
+        updateModel(userName);
     });
 
     /**
@@ -57,19 +82,43 @@ var AppController = function(){
      * @param  {string} name имя User
      * @return {boolean} удачен ли результат операции
      */
-    function update(name){
+    function updateModel(name){
         if(!name) return false;
 
-        var dataInfo = JSON.parse(localStorage.getItem(name + '-info')),
-            dataRepos = JSON.parse(localStorage.getItem(name + '-repos')),
-            userInformation = dataInfo instanceof Array ? undefined : dataInfo,
-            reposOfUser = dataRepos instanceof Array ? dataRepos : undefined;
+        var data = JSON.parse(localStorage.getItem(name)),
+            userInformation = data ? data.user : undefined,
+            reposOfUser = data ? data.repos : undefined;
 
         if(userInformation) AppController.userInf(userInformation);
         if(reposOfUser) AppController.repos(reposOfUser);
 
         AppController.notFound(false);
 
+        return true;
+    }
+
+    /**
+     * Функция обновления содержимого locaStorage при запросах
+     * @param  {string} signature название обновляемой части
+     * @param  {string} userName имя User
+     * @param  {object} response ответ сервера на запрос
+     * @return {boolean} удачен ли результат операции
+     */
+    function updateStorage(signature, userName, response){
+        if(!signature || !userName || !response) return false;
+
+        if(localStorage[userName]){
+            var localInf = JSON.parse(localStorage[userName]);
+            localInf[signature] = response;
+            localStorage.setItem(userName, JSON.stringify(localInf));
+        }
+        else{
+            var obj = {
+                time: new Date().getTime()
+            };
+            obj[signature] = response
+            localStorage.setItem(userName, JSON.stringify(obj));
+        }
         return true;
     }
 
@@ -90,8 +139,8 @@ var AppController = function(){
         }
         var responseObject = JSON.parse(resp.responseText);
 
-        localStorage.setItem(name + '-info', JSON.stringify(responseObject));
-        update(name);
+        updateStorage('user',name, responseObject);
+        updateModel(name);
     }
 
     /**
@@ -111,8 +160,8 @@ var AppController = function(){
         }
         var responseObject = JSON.parse(resp.responseText);
 
-        localStorage.setItem(name + '-repos', JSON.stringify(responseObject));
-        update(name);
+        updateStorage('repos', name, responseObject);
+        updateModel(name);
     }
 
     return {
